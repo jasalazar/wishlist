@@ -6,27 +6,26 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let lista of _listaDeseos.lista">
+  <ion-card *ngFor="let lista of _listaDeseos.listas; let i = index">
 
-    <ion-item>
-      BOTON!
+    <ion-item color="dark" (click)="verDetalle( lista, i )">
+      <h2>{{ lista.name }}</h2>
+      <ion-note item-right>
+        {{ lista.items.length }} items
+      </ion-note>
     </ion-item>
-
-    <h2>{{ lista.name }}</h2>
 
     <ion-list>
 
-      <ion-item>
-        <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>
-        Clash Royale
+      <ion-item (click)="verDetalle( lista, i )"
+        *ngFor="let item of lista.items | slice:0:2">
+        <ion-icon *ngIf="!item.completed" ios="ios-square-outline" md="md-square-outline"></ion-icon>
+        <ion-icon *ngIf="item.completed" ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
+        {{ item.name }}
       </ion-item>
-      <ion-item>
-        <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>
-        Clash of Clans
-      </ion-item>
-      <ion-item>
-        <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>
-        AoE
+
+      <ion-item class="text-center" *ngIf="lista.items.length > 2">
+        <ion-icon color="primary" ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
       </ion-item>
 
     </ion-list>

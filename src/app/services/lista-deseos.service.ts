@@ -4,20 +4,35 @@ import { List } from '../clases/listas';
 @Injectable()
 export class ListaDeseosService {
 
-  lista: List[] = [];
+  listas: List[] = [];
 
   constructor() {
 
-    let lista1 = new List('Supermarket');
-    let lista2 = new List('Video Games');
-    let lista3 = new List('University Stuff');
+    // let lista1 = new List('Supermarket');
+    // let lista2 = new List('Video Games');
+    // let lista3 = new List('University Stuff');
+    //
+    // this.listas.push( lista1 );
+    // this.listas.push( lista2 );
+    // this.listas.push( lista3 );
 
-    this.lista.push( lista1 );
-    this.lista.push( lista2 );
-    this.lista.push( lista3 );
+    this.cargarData();
 
-    console.log("Servicio iniciado");
+  }
 
+  actualizarData(){
+    localStorage.setItem( "data", JSON.stringify( this.listas ) );
+  }
+
+  cargarData(){
+    if( localStorage.getItem("data") ){
+      this.listas = JSON.parse( localStorage.getItem("data") );      
+    }
+  }
+
+  agregarLista( lista:List ){
+    this.listas.push( lista );
+    this.actualizarData();
   }
 
 }
